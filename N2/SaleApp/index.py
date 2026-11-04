@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
+from flask import render_template, request
 import dao
+from SaleApp import app
 
-app = Flask(__name__)
+
 
 @app.route("/")
 def index():
@@ -11,7 +12,7 @@ def index():
 
 @app.route("/product/<int:id>")
 def details(id):
-    return render_template("product-details.html")
+    return render_template("product-details.html", prod = dao.get_product_by_id(id))
 
 @app.context_processor
 def common_attribute():
