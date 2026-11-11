@@ -1,11 +1,26 @@
+import hashlib
 import json
-from models import Category, Product
+from models import Category, Product, User
+from SaleApp import app, db
 
 def load_categories():
     # with open("data/cates.json", encoding="utf-8") as f:
     #     return json.load(f)
     return Category.query
 
+
+def add_user(name, username, password,avatar):
+    password = hashlib.md5(password.encode('utf-8')).hexdigest()
+    u = User(name=name, username=username, password=password, avatar=avatar)
+    db.session.add(u)
+    db.session.commit()
+
+def auth_user(username,password):
+    password = hashlib.md5(password.encode('utf-8')).hexdigest()
+    return User.query.filter(User.username.__eq__(username), User.password.__eq__(password)).first()
+
+def get_user_by_id(id):
+    return User.query.get(id)
 
 def load_products(q=None, cate_id=None):
     # with open("data/products.json", encoding="utf-8") as f:
@@ -38,4 +53,6 @@ def get_product_by_id(id):
 
 
 if __name__=="__main__":
-    print(load_products())
+    with app.app_context():
+        # add_user(name="User2", username="user2", password="123", avatar="https://res.cloudinary.com/dy1unykph/image/upload/v1740037805/apple-iphone-16-pro-natural-titanium_lcnlu2.webp")
+        print(auth_user(username="user2", password="123"))

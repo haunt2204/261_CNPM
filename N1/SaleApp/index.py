@@ -1,6 +1,7 @@
-from flask import render_template, request
+from flask import render_template, request, redirect
 import dao
-from SaleApp import app
+from SaleApp import app, login
+from flask_login import login_user, current_user
 
 
 
@@ -13,6 +14,27 @@ def index():
 @app.route("/product/<int:id>")
 def details(id):
     return render_template("prod_detail.html", prod=dao.get_product_by_id(id))
+
+@app.route("/login", methods=["get","post"])
+def login_my_user():
+    err_msg = None
+    if request.method.__eq__("POST"):
+        user = request.form.get("username")
+        password = request.form.get("password")
+
+        u = dao.auth_user(username=user, password=password)
+
+        if u:
+            login_user(u)
+            return redirect("/")
+        else:
+            err_msg = "Tài khoản hoặc mật khẩu chưa đúng!"
+
+    return render_template("login.html", err_msg=err_msg)
+
+@login.user_loader
+def load_user(user_id):
+    return dao.get_user_by_id(user_id)
 
 @app.context_processor
 def common_attribute():
