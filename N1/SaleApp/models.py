@@ -35,8 +35,8 @@ class Product(Base):
 
 if __name__=="__main__":
     with app.app_context():
-        db.create_all()
-
+        # db.create_all()
+        #
         # c1 = Category(name="Mobile")
         # c2 = Category(name="Laptop")
         # c3 = Category(name="Tablet")
@@ -47,7 +47,8 @@ if __name__=="__main__":
         #
         #     for p in prods:
         #         db.session.add(Product(**p))
-
-        u = User(username="user", password="123", name="User")
-        db.session.add(u)
-        db.session.commit()
+        #
+        # u = User(username="user", password="123", name="User")
+        # db.session.add(u)
+        # db.session.commit()
+        pass

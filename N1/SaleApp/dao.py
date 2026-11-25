@@ -54,5 +54,5 @@ def get_product_by_id(id):
 
 if __name__=="__main__":
     with app.app_context():
-        # add_user(name="User2", username="user2", password="123", avatar="https://res.cloudinary.com/dy1unykph/image/upload/v1740037805/apple-iphone-16-pro-natural-titanium_lcnlu2.webp")
-        print(auth_user(username="user2", password="123"))
+        add_user(name="User2", username="user2", password="123", avatar="https://res.cloudinary.com/dy1unykph/image/upload/v1740037805/apple-iphone-16-pro-natural-titanium_lcnlu2.webp")
+        # print(auth_user(username="user2", password="123"))

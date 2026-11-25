@@ -1,0 +1,46 @@
+{%extends 'layout/base.html'%}
+
+{%block title%}Giỏ hàng{%endblock%}
+
+{%block content%}
+<h3 class="text-info text-center mt-3">GIỎ HÀNG</h3>
+
+{%if 'cart' in session and session['cart']%}
+<table class="table">
+  <tr>
+    <th>Mã sản phẩm</th>
+    <th>Tên sản phẩm</th>
+    <th>Giá sản phẩm</th>
+    <th>Số lượng</th>
+    <th></th>
+  </tr>
+  {%for p in session['cart'].values()%}
+  <tr>
+    <td>{{p.id}}</td>
+    <td>{{p.name}}</td>
+    <td>{{p.price}}</td>
+    <td>{{p.quantity}}</td>
+    <td>
+      <button class="btn btn-danger">X</button>
+    </td>
+  </tr>
+  {%endfor%}
+</table>
+
+<div class="alert alert-info">
+  <h3>Tổng số lượng sản phẩm: 2</h3>
+  <h3>Tổng tiền: 20000</h3>
+</div>
+
+{%if current_user.is_authenticated%}
+<div>
+  <button class="btn btn-success">Thanh toán</button>
+</div>
+{%else%}
+<h4 class="alert alert-info">Vui lòng <a href="/login">đăng nhập</a> để thanh toán!</h4>
+{%endif%}
+
+{%else%}
+<h3 class="alert alert-danger">Không có sản phẩm trong giỏ hàng</h3>
+{%endif%}
+{%endblock%}
